@@ -1,0 +1,89 @@
+graph TD
+    subgraph CAMADA_CORE["CAMADA CORE + DISTRIBUIÇÃO (COLAPSADA) - COM REDUNDÂNCIA"]
+        SW0A[SWITCH CORE L3 A<br>192.168.0.1/24]
+        SW0B[SWITCH CORE L3 B<br>192.168.0.2/24]
+        SW0A --- SW0B
+    end
+
+    subgraph SETOR1["SETOR 1 - VLAN 10"]
+        SW1[SWITCH 1<br>192.168.10.1/24]
+        PC1[PC 1 - Cabo<br>192.168.10.2]
+        PC2[PC 2 - Cabo<br>192.168.10.3]
+        PC3[PC 3 - Cabo<br>192.168.10.4]
+        AP1[AP-01 Wi-Fi<br>192.168.10.5]
+        PC_W1[PC 4 - Wi-Fi<br>192.168.10.6]
+    end
+
+    subgraph SETOR2["SETOR 2 - VLAN 20"]
+        SW2[SWITCH 2<br>192.168.20.1/24]
+        PC5[PC 5 - Cabo<br>192.168.20.2]
+        PC6[PC 6 - Cabo<br>192.168.20.3]
+        PC7[PC 7 - Cabo<br>192.168.20.4]
+        AP2[AP-02 Wi-Fi<br>192.168.20.5]
+        PC_W2[PC 8 - Wi-Fi<br>192.168.20.6]
+    end
+
+    subgraph SETOR3["SETOR 3 - VLAN 30"]
+        SW3[SWITCH 3<br>192.168.30.1/24]
+        PC9[PC 9 - Cabo<br>192.168.30.2]
+        PC10[PC 10 - Cabo<br>192.168.30.3]
+        AP3[AP-03 Wi-Fi<br>192.168.30.4]
+        PC_W3[PC 11 - Wi-Fi<br>192.168.30.5]
+    end
+
+    subgraph SETOR4["SETOR 4 - VLAN 40"]
+        SW4[SWITCH 4<br>192.168.40.1/24]
+        PC12[PC 12 - Cabo<br>192.168.40.2]
+        PC13[PC 13 - Cabo<br>192.168.40.3]
+        AP4[AP-04 Wi-Fi<br>192.168.40.4]
+        PC_W4[PC 14 - Wi-Fi<br>192.168.40.5]
+    end
+
+    subgraph SETOR5["SETOR 5 - VLAN 50"]
+        SW5[SWITCH 5<br>192.168.50.1/24]
+        PC15[PC 15 - Cabo<br>192.168.50.2]
+        PC16[PC 16 - Cabo<br>192.168.50.3]
+        AP5[AP-05 Wi-Fi<br>192.168.50.4]
+        PC_W5[PC 17 - Wi-Fi<br>192.168.50.5]
+    end
+
+    %% REDUNDÂNCIA: cada switch de acesso conectado aos 2 Cores
+    SW0A === SW1
+    SW0A === SW2
+    SW0A === SW3
+    SW0A === SW4
+    SW0A === SW5
+
+    SW0B === SW1
+    SW0B === SW2
+    SW0B === SW3
+    SW0B === SW4
+    SW0B === SW5
+
+    %% CONEXÕES DOS SWITCHES DE ACESSO
+    SW1 --- PC1
+    SW1 --- PC2
+    SW1 --- PC3
+    SW1 --- AP1
+    AP1 --- PC_W1
+
+    SW2 --- PC5
+    SW2 --- PC6
+    SW2 --- PC7
+    SW2 --- AP2
+    AP2 --- PC_W2
+
+    SW3 --- PC9
+    SW3 --- PC10
+    SW3 --- AP3
+    AP3 --- PC_W3
+
+    SW4 --- PC12
+    SW4 --- PC13
+    SW4 --- AP4
+    AP4 --- PC_W4
+
+    SW5 --- PC15
+    SW5 --- PC16
+    SW5 --- AP5
+    AP5 --- PC_W5
